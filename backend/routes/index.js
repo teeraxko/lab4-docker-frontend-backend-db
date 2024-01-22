@@ -7,7 +7,7 @@ const todos = require('./todos');
 
 
 router.get("/", (req, res) => {
-  res.send("main page!");
+  res.send("main page!");  
 });
 
 router.use("/todos", todos);

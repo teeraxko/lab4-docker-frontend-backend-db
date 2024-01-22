@@ -5,8 +5,12 @@ const Todo = require("../models/todo");
 
 // GET all todos
 router.get("/", async (req, res) => {
-  const todos = await Todo.find({ is_complete: false });
+  try {
+  const todos = await Todo.find({ is_complete: false }) ;
   res.send(todos);
+  }catch (err) {
+    next(err);
+  }
 });
 
 // GET todo based on ID
@@ -17,6 +21,7 @@ router.get("/:id", async (req, res) => {
 
 // POST create new todo
 router.post("/", async (req, res) => {
+  try {
   console.log(req.body);
   const todo = new Todo({
     title: req.body.title,
@@ -26,6 +31,9 @@ router.post("/", async (req, res) => {
   });
   await todo.save();
   res.send(todo);
+}catch (err) {
+  next(err);
+}
 });
 
 // UPDATE todo

@@ -11,7 +11,16 @@ async function main() {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   });
-  const app = express();
+
+   const app = express();
+   
+
+  app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
   app.use(cors());
   app.use(express.json());
   app.use("/api", routes);

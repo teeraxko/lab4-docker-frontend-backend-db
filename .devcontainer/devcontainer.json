@@ -1,0 +1,12 @@
+{"image":"mcr.microsoft.com/devcontainers/universal:2",
+"forwardPorts": [3000,3001],
+"postAttachCommand": "/bin/bash .devcontainer/setup.sh"
+// "portsAttributes": {
+//     "3000": {
+//       "privacy": "public"
+//     },
+//    "3001": {
+//       "privacy": "public"
+//     }
+//   }
+}
