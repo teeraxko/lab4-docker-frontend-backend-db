@@ -23,13 +23,11 @@ services:
     restart: always
     volumes: 
       - ./mongodb/data:/data/db
-      #- mongodb_data:/data/db
     environment: 
       MONGODB_INITDB_ROOT_USERNAME: username
       MONGODB_INITDB_ROOT_PASSWORD: password
       # MONGO_INITDB_ROOT_USERNAME: admin
       # MONGO_INITDB_ROOT_PASSWORD: pass
-    # uncomment following lines to access db locally
     ports:
       - "27017:27017"
     networks: 
@@ -54,6 +52,3 @@ services:
 
 networks:
   network-backend:
-
-# volumes: 
-#   mongodb_data:
