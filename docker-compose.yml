@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  web:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks:
+      - network-backend
+
+  api:
+    build: ./backend
+    depends_on:
+      - mongo
+    ports:
+      - "3001:3001"
+    networks: 
+     - network-backend
+  
+  mongo:
+    image: mongo
+    restart: always
+    volumes: 
+      - ./mongodb/data:/data/db
+      #- mongodb_data:/data/db
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      #MONGODB_INITDB_ROOT_USERNAME: admin
+      #MONGODB_INITDB_ROOT_PASSWORD: pass
+    # uncomment following lines to access db locally
+    ports:
+      - "27017:27017"
+    networks: 
+     - network-backend
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=ihavealongpassword
+    ports:
+      - 8081:8081
+    networks: 
+     - network-backend
+
+networks:
+  network-backend:
+
+# volumes: 
+#   mongodb_data:
